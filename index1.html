@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Funny Hunting Game - Single Player</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(to top,#87CEEB,#ffffff);
+    text-align:center;
+}
+
+h1{
+    margin:10px;
+}
+
+#scoreBoard{
+    background:#222;
+    color:white;
+    padding:10px;
+    display:flex;
+    justify-content:space-around;
+    font-size:20px;
+}
+
+#gameArea{
+    position:relative;
+    width:100vw;
+    height:80vh;
+    cursor:crosshair;
+}
+
+.animal{
+    position:absolute;
+    font-size:60px;
+    cursor:pointer;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce{
+    from{ transform:translateY(0px); }
+    to{ transform:translateY(-20px); }
+}
+
+#startBtn{
+    padding:10px 20px;
+    font-size:18px;
+    margin:10px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>😂 Funny Hunting Game 🎯</h1>
+
+<div id="scoreBoard">
+    <div>Score: <span id="score">0</span></div>
+    <div>Time: <span id="timer">30</span></div>
+</div>
+
+<div id="gameArea"></div>
+
+<button id="startBtn" onclick="startGame()">Start Game</button>
+
+<audio id="shootSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+<audio id="laughSound" src="https://www.soundjay.com/human/laugh-1.wav"></audio>
+
+<script>
+let score=0;
+let timeLeft=30;
+let gameInterval;
+let timerInterval;
+
+const animals=["🐔","🐵","🐸","🐷","🐰","🦆"];
+
+function startGame(){
+    score=0;
+    timeLeft=30;
+    document.getElementById("score").innerText=score;
+    document.getElementById("timer").innerText=timeLeft;
+
+    spawnAnimal();
+    gameInterval=setInterval(spawnAnimal,1000);
+
+    timerInterval=setInterval(()=>{
+        timeLeft--;
+        document.getElementById("timer").innerText=timeLeft;
+        if(timeLeft<=0){
+            endGame();
+        }
+    },1000);
+}
+
+function spawnAnimal(){
+    const gameArea=document.getElementById("gameArea");
+    gameArea.innerHTML="";
+    const animal=document.createElement("div");
+    animal.classList.add("animal");
+    animal.innerText=animals[Math.floor(Math.random()*animals.length)];
+    animal.style.left=Math.random()*90+"vw";
+    animal.style.top=Math.random()*60+"vh";
+
+    animal.onclick=()=>{
+        score++;
+        document.getElementById("score").innerText=score;
+        document.getElementById("shootSound").play();
+        document.getElementById("laughSound").play();
+        animal.remove();
+    };
+
+    gameArea.appendChild(animal);
+}
+
+function endGame(){
+    clearInterval(gameInterval);
+    clearInterval(timerInterval);
+    alert("Game Over! 🎉\nYour Score: "+score);
+}
+</script>
+
+</body>
+</html>
