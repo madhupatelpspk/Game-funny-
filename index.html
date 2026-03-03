@@ -2,124 +2,137 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Funny Hunting Game - Single Player</title>
+<title>Madhu ❤️ ThanaSri Love Game</title>
 
 <style>
 body{
     margin:0;
     overflow:hidden;
-    font-family:Arial, sans-serif;
-    background:linear-gradient(to top,#87CEEB,#ffffff);
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
     text-align:center;
 }
 
 h1{
-    margin:10px;
-}
-
-#scoreBoard{
-    background:#222;
+    margin-top:20px;
     color:white;
-    padding:10px;
-    display:flex;
-    justify-content:space-around;
-    font-size:20px;
+    font-size:40px;
 }
 
 #gameArea{
     position:relative;
-    width:100vw;
-    height:80vh;
-    cursor:crosshair;
+    height:70vh;
 }
 
-.animal{
+.character{
     position:absolute;
-    font-size:60px;
-    cursor:pointer;
-    animation: bounce 1s infinite alternate;
+    bottom:50px;
+    font-size:80px;
+    transition:2s ease-in-out;
 }
 
-@keyframes bounce{
-    from{ transform:translateY(0px); }
-    to{ transform:translateY(-20px); }
+#madhu{
+    left:20%;
 }
 
-#startBtn{
-    padding:10px 20px;
+#thana{
+    right:20%;
+}
+
+.hug{
+    left:45% !important;
+}
+
+#proposalBox{
+    display:none;
+    margin-top:20px;
+    font-size:25px;
+    color:white;
+}
+
+button{
+    padding:10px 25px;
     font-size:18px;
     margin:10px;
+    border:none;
+    border-radius:20px;
     cursor:pointer;
+    background:white;
+    color:#ff4e50;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#ff4e50;
+    color:white;
+}
+
+.heart{
+    position:absolute;
+    font-size:30px;
+    animation:float 3s linear infinite;
+}
+
+@keyframes float{
+    from{ transform:translateY(0); opacity:1;}
+    to{ transform:translateY(-300px); opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<h1>😂 Funny Hunting Game 🎯</h1>
+<h1>💖 Madhu ❤️ ThanaSri 💖</h1>
 
-<div id="scoreBoard">
-    <div>Score: <span id="score">0</span></div>
-    <div>Time: <span id="timer">30</span></div>
+<div id="gameArea">
+    <div id="madhu" class="character">🧑</div>
+    <div id="thana" class="character">👩</div>
 </div>
 
-<div id="gameArea"></div>
+<button onclick="startLove()">Start Love Story</button>
 
-<button id="startBtn" onclick="startGame()">Start Game</button>
+<div id="proposalBox">
+    <p>Madhu: ThanaSri, I Love You So Much 💍❤️</p>
+    <button onclick="sayYes()">Yes 💖</button>
+    <button onclick="sayNo()">No 😜</button>
+</div>
 
-<audio id="shootSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
-<audio id="laughSound" src="https://www.soundjay.com/human/laugh-1.wav"></audio>
+<audio id="bgMusic" src="https://www.soundjay.com/human/heartbeat-01.wav"></audio>
 
 <script>
-let score=0;
-let timeLeft=30;
-let gameInterval;
-let timerInterval;
 
-const animals=["🐔","🐵","🐸","🐷","🐰","🦆"];
+function startLove(){
+    document.getElementById("bgMusic").play();
+    document.getElementById("madhu").classList.add("hug");
+    document.getElementById("thana").classList.add("hug");
 
-function startGame(){
-    score=0;
-    timeLeft=30;
-    document.getElementById("score").innerText=score;
-    document.getElementById("timer").innerText=timeLeft;
-
-    spawnAnimal();
-    gameInterval=setInterval(spawnAnimal,1000);
-
-    timerInterval=setInterval(()=>{
-        timeLeft--;
-        document.getElementById("timer").innerText=timeLeft;
-        if(timeLeft<=0){
-            endGame();
-        }
-    },1000);
+    setTimeout(()=>{
+        document.getElementById("proposalBox").style.display="block";
+        createHearts();
+    },2000);
 }
 
-function spawnAnimal(){
-    const gameArea=document.getElementById("gameArea");
-    gameArea.innerHTML="";
-    const animal=document.createElement("div");
-    animal.classList.add("animal");
-    animal.innerText=animals[Math.floor(Math.random()*animals.length)];
-    animal.style.left=Math.random()*90+"vw";
-    animal.style.top=Math.random()*60+"vh";
-
-    animal.onclick=()=>{
-        score++;
-        document.getElementById("score").innerText=score;
-        document.getElementById("shootSound").play();
-        document.getElementById("laughSound").play();
-        animal.remove();
-    };
-
-    gameArea.appendChild(animal);
+function sayYes(){
+    alert("Awww 🥰 ThanaSri said YES! Forever Together 💞");
+    createHearts();
 }
 
-function endGame(){
-    clearInterval(gameInterval);
-    clearInterval(timerInterval);
-    alert("Game Over! 🎉\nYour Score: "+score);
+function sayNo(){
+    alert("No option not allowed 😂 Try Again!");
+}
+
+function createHearts(){
+    for(let i=0;i<20;i++){
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerText="💖";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.top="80vh";
+        heart.style.fontSize=(20+Math.random()*30)+"px";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),3000);
+    }
 }
 </script>
 
