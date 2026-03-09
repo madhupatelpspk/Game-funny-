@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Quotes Insta Style</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+  }
+
+  .quote-container {
+    text-align: center;
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.3);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    max-width: 600px;
+  }
+
+  .quote {
+    font-size: 2rem;
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1s forwards;
+  }
+
+  .author {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1s forwards 0.8s;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Add subtle glowing effect */
+  .quote-container::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: rotate 10s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+  }
+</style>
+</head>
+<body>
+
+<div class="quote-container">
+  <div class="quote">"Happiness is not something ready made. It comes from your own actions."</div>
+  <div class="author">– Dalai Lama</div>
+</div>
+
+</body>
+</html>
